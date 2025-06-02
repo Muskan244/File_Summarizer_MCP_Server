@@ -4,6 +4,8 @@ from mcp.server.fastmcp import FastMCP
 import os
 import json
 from tika import parser
+from langdetect import detect
+from deep_translator import GoogleTranslator
 
 # Initialize FastMCP server
 mcp = FastMCP("file_summarizer")
@@ -23,6 +25,11 @@ def summarize_content(content: str) -> str:
     """Summarize the input text with a line and character limit."""
     if not content.strip():
         return "No content to summarize."
+
+    #detect language
+    language = detect_language(content)
+    if language != "en":
+        content = translate_to_english(content)
 
     lines = content.strip().splitlines()
     summary = "\n".join(lines[:])
@@ -46,6 +53,20 @@ def summarize_content(content: str) -> str:
         return "\n".join(summaries)
     except Exception as e:
         return f"Error summarizing text: {str(e)}"'''
+
+def detect_language(text: str) -> str:
+    """Detect the language of the input text."""
+    try:
+        return detect(text)
+    except Exception as e:
+        return f"Error detecting language: {str(e)}"
+
+def translate_to_english(text: str) -> str:
+    """Translate the input text to English."""
+    try:
+        return GoogleTranslator(source='auto', target='en').translate(text)
+    except Exception as e:
+        return f"Error translating text: {str(e)}"
 
 @mcp.tool()
 async def read_file(file_path: str) -> str:
@@ -101,6 +122,16 @@ async def summarize_text(text: str) -> str:
     
     #LLM summarization
     return summarize_content(text)
+
+@mcp.tool()
+async def translate_to_english(text: str) -> str:
+    """Translate the input text to English."""
+    return translate_to_english(text)
+
+@mcp.tool()
+async def detect_language(text: str) -> str:
+    """Detect the language of the input text."""
+    return detect_language(text)
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
