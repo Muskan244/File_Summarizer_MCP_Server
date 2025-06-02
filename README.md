@@ -7,5 +7,6 @@ A lightweight server built using Model Context Protocol(MCP) to read and summari
 - Reads content from any file type supported by Apache Tika (PDF, DOCX, TXT, etc.)
 - Summarizes file content or raw imput text
 - Simple async MCP tools for easy extension and integration
+- Exposes async MCP tools for language detection and translation
 - Built with Python 3.12 and FastMCP server framework
 - Ready for use with LLMs or other summarization backends
