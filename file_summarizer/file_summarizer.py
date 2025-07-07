@@ -36,9 +36,9 @@ def summarize_content(content: str) -> str:
         return "No content to summarize."
 
     #detect language
-    language = detect_language(content)
+    language = detect_language_fn(content)
     if language != "en":
-        content = translate_text(content)
+        content = translate_text_fn(content)
 
     lines = content.strip().splitlines()
     summary = "\n".join(lines[:])   
@@ -63,14 +63,14 @@ def summarize_content(content: str) -> str:
     except Exception as e:
         return f"Error summarizing text: {str(e)}"'''
 
-def detect_language(text: str) -> str:
+def detect_language_fn(text: str) -> str:
     """Detect the language of the input text."""
     try:
         return detect(text)
     except Exception as e:
         return f"Error detecting language: {str(e)}"
 
-def translate_text(text: str) -> str:
+def translate_text_fn(text: str) -> str:
     """Translate the input text to English."""
     try:
         return GoogleTranslator(source='auto', target='en').translate(text)
@@ -146,12 +146,12 @@ async def summarize_text(text: str) -> str:
 @mcp.tool()
 async def translate_text(text: str) -> str:
     """Translate the input text to English."""
-    return translate_text(text)
+    return translate_text_fn(text)
 
 @mcp.tool()
 async def detect_language(text: str) -> str:
     """Detect the language of the input text."""
-    return detect_language(text)
+    return detect_language_fn(text)
 
 @mcp.tool()
 async def transcribe_file(file_path: str) -> str:
