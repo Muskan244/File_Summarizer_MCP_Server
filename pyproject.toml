@@ -1,10 +1,27 @@
 [project]
-name = "file-summarizer"
+name = "file-summarizer-mcp-server"
 version = "0.1.0"
-description = "MCP server to summarize files or texts"
+description = "A Model Context Protocol (MCP) server for reading and summarizing file content with language support"
 readme = "README.md"
 requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Muskan Raghav", email = "raghav12muskan@gmail.com" }]
 dependencies = [
-    "httpx>=0.28.1",
-    "mcp[cli]>=1.9.2",
+    "fastmcp",
+    "tika",
+    "langdetect",
+    "deep-translator",
+    "whisper",
+    "openai-whisper",
+    "httpx"
 ]
+
+[project.scripts]
+file-summarizer = "file_summarizer.file_summarizer:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["file_summarizer"]

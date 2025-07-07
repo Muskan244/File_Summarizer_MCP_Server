@@ -4,13 +4,13 @@ A fully offline, multi-modal file summarization server built with FastMCP. Suppo
 
 ## 🚀 Features
 
-* 📂 **Reads multiple file types** — PDF, DOCX, TXT, audio (MP3, WAV), video (MP4, MOV) via Apache Tika & Whisper.
-* 🧠 **Summarizes file content or raw input text** automatically.
-* 🌐 **Multi-language support** — detects input language, translates to English if needed, or keeps summary in original language.
-* 🎙 **Speech-to-text transcription** — audio/video files transcribed via Whisper before summarization.
-* ⚙️ **Simple async MCP tools** — easy to extend and integrate with any MCP client.
-* 🔒 Fully offline capable — no need for external LLM APIs.
-* 🐍 Built with Python 3.12, FastMCP server framework, Apache Tika, Whisper, LangDetect, and Deep Translator.
+- 📂 **Reads multiple file types** — PDF, DOCX, TXT, audio (MP3, WAV), video (MP4, MOV) via Apache Tika & Whisper.
+- 🧠 **Summarizes file content or raw input text** automatically.
+- 🌐 **Multi-language support** — detects input language, translates to English if needed, or keeps summary in original language.
+- 🎙 **Speech-to-text transcription** — audio/video files transcribed via Whisper before summarization.
+- ⚙️ **Simple async MCP tools** — easy to extend and integrate with any MCP client.
+- 🔒 Fully offline capable — no need for external LLM APIs.
+- 🐍 Built with Python 3.12, FastMCP server framework, Apache Tika, Whisper, LangDetect, and Deep Translator.
 
 ## 🛠 Installation
 
@@ -46,11 +46,11 @@ uv run file_summarizer.py
 
 It exposes the following tools:
 
-* `read_file(file_path)`
-* `summarize_file(file_path)`
-* `summarize_text(text)`
-* `detect_language(text)`
-* `translate_text(text)`
-* `transcribe_file(file_path)`
+- `read_file(file_path)`
+- `summarize_file(file_path)`
+- `summarize_text(text)`
+- `detect_language(text)`
+- `translate_text(text)`
+- `transcribe_file(file_path)`
 
 You can invoke these via any MCP-compliant client (Claude Desktop, Open Interpreter, etc.).

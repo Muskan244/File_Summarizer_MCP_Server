@@ -158,5 +158,8 @@ async def transcribe_file(file_path: str) -> str:
     """transcribe the audio or video file."""
     return transcribe_audio(file_path)
 
-if __name__ == "__main__":
+def main():
     mcp.run(transport="stdio")
+
+if __name__ == "__main__":
+    main()
