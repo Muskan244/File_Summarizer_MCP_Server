@@ -1,56 +1,119 @@
 # 📄 File Summarizer MCP Server
 
-A fully offline, multi-modal file summarization server built with FastMCP. Supports text, documents, audio, and video files with language detection, translation, and speech-to-text capabilities.
+A custom MCP (Model Context Protocol) server that reads and summarizes the contents of any file type (PDF, DOCX, TXT, HTML, JSON, etc.) using Apache Tika, with optional multilingual support.
+
+> 🧠 Easily plug this into Claude Desktop or other LLM tools to enable file-based context and summarization.
+
+---
 
 ## 🚀 Features
 
-- 📂 **Reads multiple file types** — PDF, DOCX, TXT, audio (MP3, WAV), video (MP4, MOV) via Apache Tika & Whisper.
-- 🧠 **Summarizes file content or raw input text** automatically.
-- 🌐 **Multi-language support** — detects input language, translates to English if needed, or keeps summary in original language.
-- 🎙 **Speech-to-text transcription** — audio/video files transcribed via Whisper before summarization.
-- ⚙️ **Simple async MCP tools** — easy to extend and integrate with any MCP client.
-- 🔒 Fully offline capable — no need for external LLM APIs.
-- 🐍 Built with Python 3.12, FastMCP server framework, Apache Tika, Whisper, LangDetect, and Deep Translator.
+- 🔍 Reads content from any file type supported by **Apache Tika**
+- ✨ Summarizes file content or raw input text
+- 🌍 Auto-detects file language and translates non-English text before summarizing
+- 🌐 Optional MCP tools to detect language and translate text
+- 🧩 Async MCP tools for smooth integration
+- 🛠️ Built with **Python 3.12** and the [FastMCP](https://github.com/modelcontext/fastmcp) framework
+- ✅ Ready for use with Claude Desktop or any other MCP client
+- 📦 Published to PyPI for easy installation
 
-## 🛠 Installation
+---
 
-1️⃣ Clone the repo:
+## 📦 Installation
+
+### From PyPI
+
+```bash
+pip install file-summarizer-mcp-server
+````
+
+### From GitHub
 
 ```bash
 git clone https://github.com/Muskan244/File_Summarizer_MCP_Server.git
 cd File_Summarizer_MCP_Server
+uv venv
+source .venv/bin/activate  # or .venv\Scripts\activate on Windows
+uv pip install -r requirements.txt
 ```
 
-2️⃣ Setup virtual environment:
+---
+
+## 🛠 Claude Desktop Integration
+
+To use this server inside Claude Desktop:
+
+1. Open (or create) your Claude config:
+
+#### macOS
 
 ```bash
-python3.12 -m venv .venv
-source .venv/bin/activate
+code ~/Library/Application\ Support/Claude/claude_desktop_config.json
 ```
 
-3️⃣ Install dependencies:
+#### Windows
+
+```bash
+code $env:AppData\Claude\claude_desktop_config.json
+```
+
+2. Add your server entry:
+
+```json
+{
+  "mcpServers": {
+    "file-summarizer": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/ABSOLUTE/PATH/TO/File_Summarizer_MCP_Server/file_summarizer",
+        "run",
+        "file_summarizer.py"
+      ]
+    }
+  }
+}
+```
+
+3. Restart Claude Desktop, and your tools should appear!
+
+---
+
+## 🧪 MCP Tools Provided
+
+| Tool Name                   | Description                        |
+| --------------------------- | ---------------------------------- |
+| `read_file`                 | Reads raw content from a file      |
+| `summarize_file`            | Summarizes content of any file     |
+| `summarize_text`            | Summarizes raw text string         |
+| `detect_language`           | Detects the language of input text |
+| `translate_text`            | Translates any text to English     |
+| `transcribe_file`           | Transcribe audio or video file content    |
+
+---
+
+## 📝 Requirements
+
+* Python 3.12
+* Apache Tika
+* langdetect
+* deep-translator
+* fastmcp
+
+Install all with:
 
 ```bash
 pip install -r requirements.txt
-# Whisper requires ffmpeg installed system-wide
-brew install ffmpeg  # (Mac)
 ```
 
-## 🔧 Usage
+---
 
-Start the MCP server:
+## 📜 License
 
-```bash
-uv run file_summarizer.py
-```
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-It exposes the following tools:
+---
 
-- `read_file(file_path)`
-- `summarize_file(file_path)`
-- `summarize_text(text)`
-- `detect_language(text)`
-- `translate_text(text)`
-- `transcribe_file(file_path)`
+## 👤 Author
 
-You can invoke these via any MCP-compliant client (Claude Desktop, Open Interpreter, etc.).
+[Muskan Raghav](https://github.com/Muskan244)
